@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- Author: Student CS178 Irina Golovko
+	 Date: 09/01/2018 
+	 File: build.xml
+	 Desc: It's an ant build.xml file which build 
+	 and run the HelloWorld.java program 
+	 Usage: ant -->
+
+<!-- By default we will setup 'run' target-->
+<project name="HelloWorld" default="run" basedir=".">
+	<!-- Assume we have dir 'HelloWorld' with HelloWorld.java 
+		and build.xml files. We would like to create 'src' directory 
+		to place all source files (java files) and 'build' 
+		directory to place all classes after source compilation.
+		Usually it's better to create 'src' dir manually and put there all 
+		source files but for studying we will do it in the program
+        and leave copy of source file in the homedir. -->
+	<property name="src" value="src"/>
+	<property name="build" value="build"/>
+	<target name="init" description="setup and populate project directories">
+		<mkdir dir="${src}"/>
+        <!-- We need to copy HelloWorld.java from homedirectory to 'src' 
+			 directory, because we can clean up all intermediate and
+			 artifacts files or rerun this ant program -->
+		<copy file="HelloWorld.java" todir="${src}" />
+        <mkdir dir="${build}"/>
+	</target>
+	<target name="compile" depends="init" description="Compile the java code">
+		<javac includeantruntime="false" srcdir="${src}" destdir="${build}"/>
+	</target>
+	<target name="run" depends="compile" description="run the program">
+		<!-- Run the java code -->
+		<java classname="HelloWorld">
+			<classpath path="./${build}">
+			</classpath>
+		</java>
+	</target>
+	<!-- We can clean up our project from intermediate files and directories.
+	 	In this case we have to set up 'clean' target like 'default':
+		<project name="HelloWorld" default="clean" basedir="."> 
+	
+	<target name="clean" depends="run" 
+				description="remove intermediate files and dirs: src and build">
+	        <delete dir="${src}"/>
+			<delete dir="${build}"/>
+	</target>
+	-->		 			
+</project>

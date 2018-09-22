@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<project name="CountThreesJava" default="runCount3s" basedir=".">
+	
+    <target name="Count3s"
+        description="Build the Count3s class from source">
+        <echo>Compile source files: CountThrees.java and ReadInt32BitLE.java</echo>
+        <javac includeantruntime="false" srcdir="." destdir="."/>
+    </target>    
+	<target name="runCount3s" depends="Count3s"
+            description="run the count3s application">
+        <echo>Run</echo>
+        <java classname="CountThrees">
+        <classpath path=".">
+        </classpath>
+        </java>
+    </target>
+	<target name="clean" 
+			description="remove intermediate files">
+		<echo>Doing Clean up</echo>
+	        <delete file="CountThrees.class"/>
+			<delete file="ReadInt32BitLE.class"/>
+	</target>
+</project>
